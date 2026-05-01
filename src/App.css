@@ -1,0 +1,17 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, Arial, sans-serif; background: #f6f7fb; color: #111827; }
+main { width: 100%; }
+.section { max-width: 1100px; margin: 0 auto; padding: 72px 20px; }
+.hero { min-height: 80vh; display: grid; place-content: center; text-align: center; padding: 24px; color: #fff; background: linear-gradient(140deg,#111827,#334155 60%,#2563eb); }
+.parallax { background-attachment: fixed; }
+.badge { display: inline-block; background: rgba(255,255,255,.18); padding: 8px 12px; border-radius: 999px; margin-bottom: 14px; }
+h1 { font-size: clamp(2rem,6vw,4rem); margin: 0 0 14px; }
+h2 { margin: 0 0 20px; font-size: clamp(1.5rem,4vw,2rem); }
+.btn { display: inline-block; margin-top: 16px; padding: 12px 18px; border-radius: 12px; text-decoration: none; border: 0; background: #e5e7eb; color: #111827; font-weight: 600; cursor: pointer; }
+.btn.primary { background: #2563eb; color: #fff; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 18px; }
+.card { background: #fff; border-radius: 18px; padding: 22px; box-shadow: 0 8px 24px rgba(15,23,42,.08); }
+.price { font-size: 2rem; margin: 8px 0 4px; font-weight: 800; }
+.muted { color: #6b7280; margin: 0 0 10px; }
+.checkout .payment-box { margin-top: 16px; background: #fff; padding: 20px; border-radius: 14px; box-shadow: 0 8px 24px rgba(15,23,42,.08); }
+@media (max-width: 760px){ .parallax { background-attachment: scroll; } }
