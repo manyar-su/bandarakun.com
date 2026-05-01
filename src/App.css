@@ -1,17 +1,18 @@
-* { box-sizing: border-box; }
-body { margin: 0; font-family: Inter, Arial, sans-serif; background: #f6f7fb; color: #111827; }
-main { width: 100%; }
-.section { max-width: 1100px; margin: 0 auto; padding: 72px 20px; }
-.hero { min-height: 80vh; display: grid; place-content: center; text-align: center; padding: 24px; color: #fff; background: linear-gradient(140deg,#111827,#334155 60%,#2563eb); }
-.parallax { background-attachment: fixed; }
-.badge { display: inline-block; background: rgba(255,255,255,.18); padding: 8px 12px; border-radius: 999px; margin-bottom: 14px; }
-h1 { font-size: clamp(2rem,6vw,4rem); margin: 0 0 14px; }
-h2 { margin: 0 0 20px; font-size: clamp(1.5rem,4vw,2rem); }
-.btn { display: inline-block; margin-top: 16px; padding: 12px 18px; border-radius: 12px; text-decoration: none; border: 0; background: #e5e7eb; color: #111827; font-weight: 600; cursor: pointer; }
-.btn.primary { background: #2563eb; color: #fff; }
-.cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 18px; }
-.card { background: #fff; border-radius: 18px; padding: 22px; box-shadow: 0 8px 24px rgba(15,23,42,.08); }
-.price { font-size: 2rem; margin: 8px 0 4px; font-weight: 800; }
-.muted { color: #6b7280; margin: 0 0 10px; }
-.checkout .payment-box { margin-top: 16px; background: #fff; padding: 20px; border-radius: 14px; box-shadow: 0 8px 24px rgba(15,23,42,.08); }
-@media (max-width: 760px){ .parallax { background-attachment: scroll; } }
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:#f3f6fb;color:#0f172a}
+.hero{padding:72px 20px;text-align:center;background:linear-gradient(140deg,#0b1f4d,#12337a);color:#fff}
+.hero h1{margin:0 0 8px;font-size:clamp(1.8rem,5vw,3rem)} .hero p{margin:0 0 18px;opacity:.9}
+.section{max-width:1150px;margin:0 auto;padding:44px 18px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.chip{background:#dbeafe;color:#1e3a8a;padding:8px 12px;border-radius:999px;font-size:.85rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:18px}
+.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 22px rgba(2,6,23,.08)}
+.card img{width:100%;height:220px;object-fit:cover}
+.card-body{padding:14px}.tag{display:inline-block;background:#e2e8f0;color:#334155;padding:5px 10px;border-radius:999px;font-size:.75rem}
+h3{margin:10px 0 8px}.price{font-weight:800;color:#1d4ed8}
+.btn{border:0;background:#e2e8f0;color:#0f172a;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.primary{background:#2563eb;color:#fff}
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.58);display:grid;place-items:center;padding:16px;z-index:20}
+.modal{background:#fff;border-radius:14px;max-width:420px;width:100%;padding:18px}
+.modal .muted{color:#64748b;margin:4px 0}.modal label{display:block;font-size:.9rem;margin:10px 0 6px}
+.modal input{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:10px}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
