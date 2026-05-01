@@ -1,0 +1,1 @@
+export default function QnaPage(){return <main className="section"><h1>QnA</h1><p>Tanya jawab umum seputar produk AI, editing, dan token.</p></main>}

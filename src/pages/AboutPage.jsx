@@ -1,0 +1,1 @@
+export default function AboutPage(){return <main className="section"><h1>About Me</h1><p>BandarAkun adalah layanan penjualan produk digital AI, editing, dan token dengan proses cepat.</p></main>}

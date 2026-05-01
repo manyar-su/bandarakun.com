@@ -1,0 +1,1 @@
+export default function PrivacyPage(){return <main className="section"><h1>Privacy Policy</h1><p>Kami hanya menyimpan data pembelian (email & WhatsApp) untuk proses order dan support.</p></main>}

@@ -1,0 +1,1 @@
+export default function FaqPage(){return <main className="section"><h1>FAQ</h1><p><b>Bagaimana proses beli?</b><br/>Pilih produk, isi email dan WhatsApp, lalu lanjut bayar.</p><p><b>Pembayaran?</b><br/>QRIS DANA atau rekening.</p></main>}
