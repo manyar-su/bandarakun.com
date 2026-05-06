@@ -13,11 +13,13 @@ export default function AdminPage() {
     price: '',
     oldPrice: '',
     category: 'ai',
-    location: '',
     sold: '',
     rating: '5.0',
     promo: '',
-    duration: '1 bulan',
+    duration: '30 hari',
+    serviceType: '',
+    detail: '',
+    features: '',
     image: imageOptions[0],
   })
 
@@ -40,11 +42,13 @@ export default function AdminPage() {
         price: Number(form.price),
         oldPrice: Number(form.oldPrice || form.price),
         category: form.category,
-        location: form.location || 'Indonesia',
         sold: form.sold || '0 terjual',
         rating: form.rating || '5.0',
         promo: form.promo || 'Produk Baru',
-        duration: form.duration || '1 bulan',
+        duration: form.duration || '30 hari',
+        serviceType: form.serviceType || 'Digital access',
+        detail: form.detail || 'Produk digital premium.',
+        features: form.features ? form.features.split(',').map((item) => item.trim()).filter(Boolean) : ['Akses digital'],
         image: form.image,
       },
       ...products,
@@ -56,11 +60,13 @@ export default function AdminPage() {
       price: '',
       oldPrice: '',
       category: 'ai',
-      location: '',
       sold: '',
       rating: '5.0',
       promo: '',
-      duration: '1 bulan',
+      duration: '30 hari',
+      serviceType: '',
+      detail: '',
+      features: '',
       image: imageOptions[0],
     })
   }
@@ -75,8 +81,8 @@ export default function AdminPage() {
       <div className="admin-head">
         <div>
           <span className="eyebrow">Admin Produk</span>
-          <h1>Tambah Produk Marketplace</h1>
-          <p className="section-copy">Panel sederhana untuk input produk baru agar langsung tampil di halaman utama pada browser ini.</p>
+          <h1>Tambah Produk Digital</h1>
+          <p className="section-copy">Isi data digital product lalu tampilkan langsung di home pada browser ini.</p>
         </div>
         <a className="btn" href="/">Kembali ke Home</a>
       </div>
@@ -107,15 +113,15 @@ export default function AdminPage() {
               </select>
             </div>
             <div>
-              <label>Durasi</label>
+              <label>Masa aktif</label>
               <input value={form.duration} onChange={(e) => setForm({ ...form, duration: e.target.value })} />
             </div>
           </div>
 
           <div className="admin-row">
             <div>
-              <label>Lokasi</label>
-              <input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} />
+              <label>Jenis layanan</label>
+              <input value={form.serviceType} onChange={(e) => setForm({ ...form, serviceType: e.target.value })} placeholder="contoh: Sharing access" />
             </div>
             <div>
               <label>Promo</label>
@@ -133,6 +139,12 @@ export default function AdminPage() {
               <input value={form.sold} onChange={(e) => setForm({ ...form, sold: e.target.value })} placeholder="contoh: 20 terjual" />
             </div>
           </div>
+
+          <label>Keterangan produk</label>
+          <input value={form.detail} onChange={(e) => setForm({ ...form, detail: e.target.value })} placeholder="jelaskan produk digital ini" />
+
+          <label>Fitur layanan</label>
+          <input value={form.features} onChange={(e) => setForm({ ...form, features: e.target.value })} placeholder="pisahkan dengan koma, contoh: 8500 token, generate image, generate video" />
 
           <label>Gambar</label>
           <select value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })}>
@@ -152,7 +164,7 @@ export default function AdminPage() {
               <article key={item.id} className="admin-item">
                 <strong>{item.name}</strong>
                 <span>{item.category.toUpperCase()} • Rp{Number(item.price).toLocaleString('id-ID')}</span>
-                <small>{item.location} • {item.sold}</small>
+                <small>{item.duration} • {item.serviceType}</small>
               </article>
             ))}
           </div>

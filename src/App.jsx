@@ -36,7 +36,7 @@ export default function App() {
           <NavLink to="/about">About</NavLink>
           <NavLink to="/admin">Admin</NavLink>
         </div>
-        <a href="https://wa.me/6280000000000" target="_blank" rel="noreferrer" className="nav-cta">Chat Admin</a>
+        <a href="https://wa.me/6283165514217" target="_blank" rel="noreferrer" className="nav-cta">Chat Admin</a>
       </nav>
 
       <Routes>

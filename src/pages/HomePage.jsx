@@ -4,6 +4,7 @@ import prod2 from '../assets/prod2.jpg'
 import prod3 from '../assets/prod3.jpg'
 
 const STORAGE_KEY = 'bandarakun-products'
+const ADMIN_WA = '6283165514217'
 
 const defaultProducts = [
   {
@@ -13,24 +14,28 @@ const defaultProducts = [
     price: 99000,
     image: prod1,
     category: 'ai',
-    location: 'Jakarta Pusat',
     sold: '250+ terjual',
     rating: '5.0',
     promo: 'Promo Mingguan',
-    duration: '1 bulan',
+    duration: '30 hari',
+    serviceType: 'Private access',
+    features: ['Akses AI premium', 'Cocok untuk riset dan writing', 'Support penggunaan harian'],
+    detail: 'Paket digital product untuk kebutuhan prompting, riset, drafting, dan workflow kerja harian dengan masa aktif 30 hari.',
   },
   {
     id: 2,
-    name: 'Perplexity Pro Include ChatGPT Bundle',
-    oldPrice: 179000,
-    price: 120000,
+    name: 'Leonardo AI 1 Bulan 8500 Token',
+    oldPrice: 149000,
+    price: 85000,
     image: prod2,
     category: 'ai',
-    location: 'Jakarta Barat',
     sold: '180+ terjual',
     rating: '5.0',
-    promo: 'Hemat Bonus',
-    duration: '1 bulan',
+    promo: 'Best Offer',
+    duration: '30 hari',
+    serviceType: 'Sharing access',
+    features: ['8500 token', 'Generate image', 'Generate video', 'Cocok untuk konten visual'],
+    detail: 'Produk digital untuk kebutuhan generate image dan video dengan token siap pakai selama 1 bulan.',
   },
   {
     id: 3,
@@ -39,11 +44,13 @@ const defaultProducts = [
     price: 45000,
     image: prod3,
     category: 'tools',
-    location: 'Bandung',
     sold: '96 terjual',
     rating: '5.0',
     promo: 'Akses Cepat',
     duration: '30 hari',
+    serviceType: 'Invite access',
+    features: ['Template premium', 'Export tanpa watermark', 'Cocok untuk desain konten'],
+    detail: 'Layanan digital untuk kebutuhan desain konten, presentasi, dan editing visual dengan akses premium.',
   },
   {
     id: 4,
@@ -52,11 +59,13 @@ const defaultProducts = [
     price: 35000,
     image: prod1,
     category: 'apps',
-    location: 'Surabaya',
     sold: '124 terjual',
     rating: '5.0',
     promo: 'Gratis Update',
     duration: '30 hari',
+    serviceType: 'Sharing access',
+    features: ['Fitur edit premium', 'Efek dan template tambahan', 'Cocok untuk short video'],
+    detail: 'Produk digital untuk editing video creator dengan akses premium selama 30 hari.',
   },
   {
     id: 5,
@@ -65,11 +74,13 @@ const defaultProducts = [
     price: 85000,
     image: prod2,
     category: 'ai',
-    location: 'Jakarta Timur',
     sold: '73 terjual',
     rating: '5.0',
     promo: 'Best Seller',
-    duration: '1 bulan',
+    duration: '30 hari',
+    serviceType: 'VIP sharing',
+    features: ['Drafting dan analisa', 'Cocok untuk dokumen', 'Pemakaian produktif harian'],
+    detail: 'Layanan digital AI premium untuk drafting, analisa, dan penulisan lebih rapi selama masa aktif 30 hari.',
   },
   {
     id: 6,
@@ -78,11 +89,13 @@ const defaultProducts = [
     price: 59000,
     image: prod3,
     category: 'tools',
-    location: 'Bekasi',
     sold: '41 terjual',
     rating: '5.0',
     promo: 'Produktivitas',
     duration: '30 hari',
+    serviceType: 'Workspace access',
+    features: ['Catatan premium', 'AI assistant', 'Cocok untuk SOP dan knowledge base'],
+    detail: 'Produk digital untuk produktivitas dan workspace management dengan fitur AI aktif selama 30 hari.',
   },
 ]
 
@@ -99,6 +112,7 @@ export default function HomePage() {
   const [selected, setSelected] = useState(null)
   const [form, setForm] = useState({ email: '', whatsapp: '' })
   const [products, setProducts] = useState(defaultProducts)
+  const [openDetails, setOpenDetails] = useState({})
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY)
@@ -116,10 +130,14 @@ export default function HomePage() {
     const normalized = query.trim().toLowerCase()
     return products.filter((item) => {
       const matchCategory = activeCategory === 'all' || item.category === activeCategory
-      const matchQuery = !normalized || [item.name, item.category, item.location, item.promo].some((v) => v.toLowerCase().includes(normalized))
+      const matchQuery = !normalized || [item.name, item.category, item.promo, item.serviceType].some((v) => String(v).toLowerCase().includes(normalized))
       return matchCategory && matchQuery
     })
   }, [activeCategory, products, query])
+
+  const toggleDetail = (id) => {
+    setOpenDetails((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
 
   return (
     <main className="market-home">
@@ -152,7 +170,7 @@ export default function HomePage() {
           </div>
           <div className="toolbar-badges">
             <span className="toolbar-pill">⇅</span>
-            <span className="toolbar-pill green">2</span>
+            <span className="toolbar-pill green">{filteredProducts.length}</span>
           </div>
         </div>
       </section>
@@ -160,19 +178,34 @@ export default function HomePage() {
       <section className="product-section market-listing">
         <div className="market-grid">
           {filteredProducts.map((item) => (
-            <article className="market-card" key={item.id} onClick={() => setSelected(item)}>
-              <div className="market-thumb-wrap">
-                <img src={item.image} alt={item.name} className="market-thumb" />
-                <span className="promo-badge">{item.promo}</span>
-                <span className="duration-badge">{item.duration}</span>
+            <article className="market-card" key={item.id}>
+              <div className="market-card-click" onClick={() => setSelected(item)}>
+                <div className="market-thumb-wrap">
+                  <img src={item.image} alt={item.name} className="market-thumb" />
+                  <span className="promo-badge">{item.promo}</span>
+                  <span className="duration-badge">{item.duration}</span>
+                </div>
+                <div className="market-body">
+                  <h3>{item.name}</h3>
+                  <p className="market-price">Rp{item.price.toLocaleString('id-ID')}</p>
+                  <p className="market-meta discount-line">Hemat dari Rp{item.oldPrice.toLocaleString('id-ID')}</p>
+                  <p className="market-meta">⭐ {item.rating} · {item.sold}</p>
+                  <p className="market-service">{item.serviceType}</p>
+                </div>
               </div>
-              <div className="market-body">
-                <h3>{item.name}</h3>
-                <p className="market-price">Rp{item.price.toLocaleString('id-ID')}</p>
-                <p className="market-meta discount-line">Hemat dari Rp{item.oldPrice.toLocaleString('id-ID')}</p>
-                <p className="market-meta">⭐ {item.rating} · {item.sold}</p>
-                <p className="market-location">{item.location}</p>
-              </div>
+              <button className="showhide-btn" onClick={() => toggleDetail(item.id)}>
+                {openDetails[item.id] ? 'Sembunyikan detail' : 'Lihat detail'}
+              </button>
+              {openDetails[item.id] && (
+                <div className="market-detail-box">
+                  <p><strong>Masa aktif:</strong> {item.duration}</p>
+                  <p><strong>Jenis layanan:</strong> {item.serviceType}</p>
+                  <p><strong>Keterangan:</strong> {item.detail}</p>
+                  <div className="feature-list">
+                    {item.features?.map((feature) => <span key={feature}>{feature}</span>)}
+                  </div>
+                </div>
+              )}
             </article>
           ))}
         </div>
@@ -182,12 +215,16 @@ export default function HomePage() {
         <div className="modal-backdrop" onClick={() => setSelected(null)}>
           <div className="modal market-modal" onClick={(e) => e.stopPropagation()}>
             <h3>{selected.name}</h3>
-            <p className="muted">Kategori: {selected.category.toUpperCase()} • Durasi: {selected.duration}</p>
+            <p className="muted">Kategori: {selected.category.toUpperCase()} • Masa aktif: {selected.duration}</p>
             <div className="detail-grid">
               <div><span>Harga</span><strong>Rp{selected.price.toLocaleString('id-ID')}</strong></div>
-              <div><span>Lokasi</span><strong>{selected.location}</strong></div>
+              <div><span>Jenis layanan</span><strong>{selected.serviceType}</strong></div>
               <div><span>Rating</span><strong>{selected.rating}</strong></div>
               <div><span>Terjual</span><strong>{selected.sold}</strong></div>
+            </div>
+            <p className="desc">{selected.detail}</p>
+            <div className="feature-list modal-feature-list">
+              {selected.features?.map((feature) => <span key={feature}>{feature}</span>)}
             </div>
             <label>Email</label>
             <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="emailkamu@contoh.com" />
@@ -197,7 +234,7 @@ export default function HomePage() {
               <button className="btn" onClick={() => setSelected(null)}>Tutup</button>
               <a
                 className="btn primary"
-                href={`https://wa.me/6280000000000?text=${encodeURIComponent(`Halo admin, saya tertarik dengan ${selected.name}. Email: ${form.email || '-'}, WhatsApp: ${form.whatsapp || '-'}`)}`}
+                href={`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(`Halo admin, saya tertarik dengan ${selected.name}. Email: ${form.email || '-'}, WhatsApp: ${form.whatsapp || '-'}`)}`}
                 target="_blank"
                 rel="noreferrer"
               >
