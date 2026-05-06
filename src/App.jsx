@@ -4,6 +4,7 @@ import FaqPage from './pages/FaqPage'
 import QnaPage from './pages/QnaPage'
 import PrivacyPage from './pages/PrivacyPage'
 import AboutPage from './pages/AboutPage'
+import AdminPage from './pages/AdminPage'
 import './App.css'
 
 const footerLinks = [
@@ -33,6 +34,7 @@ export default function App() {
           <NavLink to="/faq">FAQ</NavLink>
           <NavLink to="/privacy-policy">Privacy Policy</NavLink>
           <NavLink to="/about">About</NavLink>
+          <NavLink to="/admin">Admin</NavLink>
         </div>
         <a href="https://wa.me/6280000000000" target="_blank" rel="noreferrer" className="nav-cta">Chat Admin</a>
       </nav>
@@ -43,6 +45,7 @@ export default function App() {
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/privacy-policy" element={<PrivacyPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
 
       <footer className="site-footer">
