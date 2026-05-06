@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import prod1 from '../assets/prod1.jpg'
 import prod2 from '../assets/prod2.jpg'
 import prod3 from '../assets/prod3.jpg'
@@ -116,6 +116,12 @@ const howToBuy = [
   'Isi kontak lalu lanjutkan konfirmasi ke admin',
 ]
 
+const heroCards = [
+  { title: 'AI Access', value: 'Prompting • Writing • Research' },
+  { title: 'Tools Stack', value: 'Design • Workflow • Productivity' },
+  { title: 'Apps Ready', value: 'Editing • Creator • Daily Use' },
+]
+
 const avatarColor = ['#2563eb', '#7c3aed', '#0ea5e9']
 const categoryOptions = [
   { key: 'all', label: 'Semua' },
@@ -130,6 +136,14 @@ export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState('all')
   const [query, setQuery] = useState('')
   const [pointer, setPointer] = useState({ x: 0, y: 0 })
+  const [scrollY, setScrollY] = useState(0)
+
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY || 0)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const filteredProducts = useMemo(() => {
     const normalized = query.trim().toLowerCase()
@@ -162,20 +176,48 @@ export default function HomePage() {
         }}
         onMouseLeave={() => setPointer({ x: 0, y: 0 })}
       >
-        <div className="parallax-layer" style={{ transform: `translate3d(${pointer.x * -20}px, ${pointer.y * -20}px, 0)` }} />
-        <img src={logoNew} alt="Bandar Akun" className="hero-logo" style={{ transform: `translate3d(${pointer.x * 18}px, ${pointer.y * 18}px, 0) rotateY(${pointer.x * 12}deg) rotateX(${pointer.y * -12}deg)` }} />
-        <span className="hero-pill">VIP Sharing Marketplace</span>
-        <h1>Akun VIP Sharing untuk AI, Tools, dan Apps</h1>
-        <p>Pilih kategori dengan lebih jelas, cek detail aksesnya, lalu lanjut order dengan lebih cepat.</p>
-        <div className="hero-actions">
-          <a href="#catalog" className="btn primary">Lihat Katalog</a>
-          <a href="#how-to-buy" className="btn ghost">Cara Order</a>
-        </div>
-        <div className="hero-stats">
-          <div><strong>{summary.total}+</strong><span>Produk tampil</span></div>
-          <div><strong>{summary.ai}</strong><span>Kategori AI</span></div>
-          <div><strong>{summary.tools}</strong><span>Kategori Tools</span></div>
-          <div><strong>{summary.apps}</strong><span>Kategori Apps</span></div>
+        <div className="hero-orb orb-left" style={{ transform: `translate3d(${pointer.x * -35}px, ${pointer.y * -20 - scrollY * 0.06}px, 0)` }} />
+        <div className="hero-orb orb-right" style={{ transform: `translate3d(${pointer.x * 28}px, ${pointer.y * 20 - scrollY * 0.08}px, 0)` }} />
+        <div className="hero-grid-lines" style={{ transform: `translate3d(0, ${scrollY * 0.12}px, 0)` }} />
+        <div className="parallax-layer" style={{ transform: `translate3d(${pointer.x * -20}px, ${pointer.y * -20 - scrollY * 0.1}px, 0)` }} />
+
+        <div className="hero-content">
+          <div className="hero-copy">
+            <span className="hero-pill">VIP Sharing Marketplace</span>
+            <h1>Akun VIP Sharing untuk AI, Tools, dan Apps</h1>
+            <p>Pilih kategori dengan lebih jelas, cek detail aksesnya, lalu lanjut order dengan lebih cepat.</p>
+            <div className="hero-actions">
+              <a href="#catalog" className="btn primary">Lihat Katalog</a>
+              <a href="#how-to-buy" className="btn ghost">Cara Order</a>
+            </div>
+            <div className="hero-stats">
+              <div><strong>{summary.total}+</strong><span>Produk tampil</span></div>
+              <div><strong>{summary.ai}</strong><span>Kategori AI</span></div>
+              <div><strong>{summary.tools}</strong><span>Kategori Tools</span></div>
+              <div><strong>{summary.apps}</strong><span>Kategori Apps</span></div>
+            </div>
+          </div>
+
+          <div className="hero-visual">
+            <img
+              src={logoNew}
+              alt="Bandar Akun"
+              className="hero-logo"
+              style={{ transform: `translate3d(${pointer.x * 18}px, ${pointer.y * 18 - scrollY * 0.12}px, 0) rotateY(${pointer.x * 12}deg) rotateX(${pointer.y * -12}deg)` }}
+            />
+            <div className="floating-cards">
+              {heroCards.map((card, index) => (
+                <article
+                  key={card.title}
+                  className={`floating-card floating-card-${index + 1}`}
+                  style={{ transform: `translate3d(${pointer.x * (index % 2 === 0 ? -14 : 14)}px, ${pointer.y * 10 - scrollY * (0.05 + index * 0.02)}px, 0)` }}
+                >
+                  <span>{card.title}</span>
+                  <strong>{card.value}</strong>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
       </header>
 
